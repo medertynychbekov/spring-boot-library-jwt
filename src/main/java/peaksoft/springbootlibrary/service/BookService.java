@@ -56,7 +56,6 @@ public class BookService {
         return bookMapper.mapToBookResponse(bookEntity);
     }
 
-    // todo дописать все поля
     public BookResponse updateById(Long id, BookRequest bookRequest) {
         BookEntity bookEntity = bookRepository.findById(id).orElse(null);
         bookEntity.setTitle(bookRequest.getTitle());

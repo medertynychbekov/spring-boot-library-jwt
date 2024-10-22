@@ -54,7 +54,7 @@ public class UserService {
     public List<UserResponse> findAll() {
         List<UserEntity> userEntityList = userRepository.findAll();
 //        List<UserResponse> userResponseList = new ArrayList<>();
-        //todo альтернативо mapping list
+        /** альтернативо mapping list */
 //        for (UserEntity userEntity : userEntityList) {
 //            UserResponse userResponse = userMapper.mapToResponse(userEntity);
 //            userResponseList.add(userResponse);
