@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import peaksoft.springbootlibrary.dto.BookRequest;
 import peaksoft.springbootlibrary.dto.BookResponse;
+import peaksoft.springbootlibrary.exception.MyCustomException;
 import peaksoft.springbootlibrary.mapper.BookMapper;
 import peaksoft.springbootlibrary.model.BookEntity;
 import peaksoft.springbootlibrary.repository.BookRepository;
@@ -51,7 +52,7 @@ public class BookService {
     public BookResponse findByTitleOrAuthor(String title) {
         BookEntity bookEntity = bookRepository.findByTitleOrAuthor(title);
         if (bookEntity == null) {
-            return null;
+            throw new MyCustomException("Book with title or author: " + title + "  not found!!!");
         }
         return bookMapper.mapToBookResponse(bookEntity);
     }
@@ -98,11 +99,11 @@ public class BookService {
         BookEntity bookEntity = bookRepository.findById(id).orElse(null);
 
         if (bookEntity == null) {
-            throw new RuntimeException("Book with id: " + id + " not found");
+            throw new MyCustomException("Book with id: " + id + " not found");
         }
 
         if (bookEntity.getAvailableCopies() <= 0) {
-            throw new RuntimeException("Not available copies ");
+            throw new MyCustomException("Not available copies ");
         }
 
         bookEntity.setAvailableCopies(bookEntity.getAvailableCopies() - 1);
